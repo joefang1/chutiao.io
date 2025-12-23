@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>鸡尾酒主题网站</title>
+    <!-- 引入Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 引入Font Awesome图标 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- 自定义配置 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0F3460', // 主色 宝石蓝
+                        secondary: '#53BF9D', // 辅色
+                        accent: '#FF8A00', // 点缀橙
+                    },
+                    height: {
+                        'nav': '80px',
+                        'hero': '480px',
+                        'section-a': '320px',
+                        'section-b': '400px',
+                        'section-c': '280px',
+                        'footer': '200px',
+                    },
+                    fontSize: {
+                        'title': '42px',
+                        'subtitle': '18px',
+                        'h3': '16px', // 三号
+                        'h4': '14px', // 四号
+                        'h5': '15px', // 小三
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style type="text/tailwindcss">
+        @layer utilities {
+            /* 自定义工具类 */
+            .mask-blue-30 {
+                background: rgba(15, 52, 96, 0.3);
+            }
+            .card-hover-border {
+                transition: border-top 0.3s ease;
+            }
+            .card-hover-border:hover {
+                border-top: 5px solid #53BF9D;
+            }
+            .card-hover-border:hover .favorite-icon {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body class="font-sans">
+    <!-- ① 导航栏 -->
+    <header class="h-nav w-full bg-white shadow-md">
+        <div class="container mx-auto h-full px-4 flex items-center justify-between">
+            <!-- Logo -->
+            <div class="w-[180px] h-[48px] bg-gray-200 flex items-center justify-center">
+                <span class="text-primary font-bold">LOGO</span>
+            </div>
+            
+            <!-- 中间菜单 -->
+            <nav class="flex space-x-8">
+                <a href="#" class="text-gray-700 hover:text-primary font-medium">首页</a>
+                <a href="2.html" class="text-gray-700 hover:text-primary font-medium">酒单</a>
+     <div class="relative group">
+                <!-- 主按钮：教程 -->
+                <a href="#" class="text-gray-700 hover:text-primary font-medium flex items-center gap-1">
+                    教程
+                    <i class="fa-solid fa-chevron-down text-xs transition-transform group-hover:rotate-180"></i>
+                </a>
+                <!-- 下拉子菜单（默认隐藏，hover显示） -->
+                <div class="absolute top-full left-0 mt-1 w-[180px] bg-white shadow-lg rounded-md overflow-hidden invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all duration-300 z-50">
+                    <ul class="divide-y divide-gray-100">
+                        <!-- 工具介绍（链接到tool-intro.html） -->
+                        <li>
+                            <a href="3.html" class="block px-4 py-3 text-gray-700 hover:bg-primary/5 hover:text-primary transition-colors">
+                                工具介绍
+                            </a>
+                        </li>
+                        <!-- 基酒知识（预留链接，后续可替换为基酒知识页面路径） -->
+                        <li>
+                            <a href="4.html" class="block px-4 py-3 text-gray-700 hover:bg-primary/5 hover:text-primary transition-colors">
+                                基酒知识
+                            </a>
+                        </li>
+                        <!-- 基础技巧（预留链接，后续可替换为基础技巧页面路径） -->
+                        <li>
+                            <a href="#" class="block px-4 py-3 text-gray-700 hover:bg-primary/5 hover:text-primary transition-colors">
+                                基础技巧
+                            </a>
+                        </ul>
+                    </div>
+                </div>
+                <a href="#" class="text-gray-700 hover:text-primary font-medium">社区</a>
+                <a href="#" class="text-gray-700 hover:text-primary font-medium">关于</a>
+            </nav>
+            
+            <!-- 右侧搜索框 + 图标 -->
+            <div class="flex items-center">
+                <div class="relative w-[240px] h-[36px]">
+                    <input type="text" placeholder="搜索鸡尾酒配方..." 
+                           class="w-full h-full px-4 pr-10 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/50">
+                    <button class="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-primary">
+                        <i class="fa-solid fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ② 主视觉区 -->
+    <section class="h-hero w-full bg-gray-100">
+        <div class="container mx-auto h-full px-4 flex items-center">
+            <!-- 左侧文案区 --> 
+            <div class="w-1/2 h-full flex flex-col justify-center">
+                <h1 class="text-title font-bold text-primary mb-4">探索鸡尾酒的无限可能</h1>
+                <p class="text-subtitle text-gray-600 mb-8">从经典配方到创意特调，开启你的调酒之旅</p>
+                 <a href="2.html"  class="w-[140px] h-[44px] bg-primary text-white rounded hover:bg-primary/90 transition-colors"> 立即探索</a>
+            </div>
+            
+            <!-- 右侧图片区 -->
+            <div class="w-1/2 h-full relative">
+                <img src="./images/zhushitu.jpg" alt="鸡尾酒主视觉图" class="w-full h-full object-cover">
+                <!-- 30%宝石蓝遮罩 -->
+                <div class="absolute inset-0 mask-blue-30"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ③ 内容区-A 新手入门 -->
+    <section class="h-section-a w-full py-8">
+        <div class="container mx-auto px-4">
+            <h2 class="text-2xl font-bold text-center mb-8">新手入门</h2>
+            <div class="grid grid-cols-3 gap-6 h-[calc(100%-60px)]">
+                <!-- 卡片1 工具介绍 -->
+                <div class="w-full h-[220px] bg-white shadow-md rounded p-6 flex flex-col items-center text-center">
+                    <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+                        <i class="fa-solid fa-tools text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="text-h3 font-bold mb-2">工具介绍</h3>
+                    <p class="text-h4 text-gray-600">了解调酒必备的基础工具</p>
+                    <a href="3.html" class="mt-4 text-secondary hover:text-primary text-sm">查看详情 →</a>
+                </div>
+                
+                <!-- 卡片2 基酒知识 -->
+                <div class="w-full h-[220px] bg-white shadow-md rounded p-6 flex flex-col items-center text-center">
+                    <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+                        <i class="fa-solid fa-wine-bottle text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="text-h3 font-bold mb-2">基酒知识</h3>
+                    <p class="text-h4 text-gray-600">认识六大基酒的风味特点</p>
+                    <a href="4.html" class="mt-4 text-secondary hover:text-primary text-sm">查看详情 →</a>
+                </div>
+                
+                <!-- 卡片3 基础技巧 -->
+                <div class="w-full h-[220px] bg-white shadow-md rounded p-6 flex flex-col items-center text-center">
+                    <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+                        <i class="fa-solid fa-stirrer text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="text-h3 font-bold mb-2">基础技巧</h3>
+                    <p class="text-h4 text-gray-600">掌握摇匀、搅拌等核心手法</p>
+                    <a href="#.html" class="mt-4 text-secondary hover:text-primary text-sm">查看详情 →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ④ 内容区-B 本周热门配方 -->
+    <section class="h-section-b w-full py-8 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-2xl font-bold text-center mb-8">本周热门配方</h2>
+            <div class="grid grid-cols-4 gap-4 h-[calc(100%-60px)]">
+                <!-- 卡片1 -->
+                <div class="card-hover-border relative bg-white rounded overflow-hidden">
+                    <img src="https://pic1.zhimg.com/50/v2-f49d8d71865873c79e356c8b9270bdbc_hd.jpg?source=1940ef5c" alt="莫吉托鸡尾酒" class="w-full h-[180px] object-cover">
+                    <div class="p-4">
+                        <h3 class="text-h5 font-bold mb-2"><a href="5.html" >莫吉托</a></h3>
+                        <div class="text-yellow-400">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                    </div>
+                    <!-- 收藏图标 (悬停显示) -->
+                    <div class="favorite-icon absolute top-4 right-4 opacity-0 text-secondary transition-opacity">
+                        <i class="fa-solid fa-heart"></i> 收藏
+                    </div>
+                </div>
+                
+                <!-- 卡片2 -->
+                <div class="card-hover-border relative bg-white rounded overflow-hidden">
+                    <img src="./images/longisland.jpg" alt="长岛冰茶鸡尾酒" class="w-full h-[180px] object-cover">
+                    <div class="p-4">
+                        <h3 class="text-h5 font-bold mb-2"><a href="7.html" >长岛冰茶</a></h3>
+                        <div class="text-yellow-400">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                    </div>
+                    <div class="favorite-icon absolute top-4 right-4 opacity-0 text-secondary transition-opacity">
+                        <i class="fa-solid fa-heart"></i> 收藏
+                    </div>
+                </div>
+                
+                <!-- 卡片3 -->
+                <div class="card-hover-border relative bg-white rounded overflow-hidden">
+                    <img src="https://fz-zion-static.functorz.com/202512172359/f3653ed2e2eb1e0926fb6f28c55f369b/project/2000000000313055/images/t_iTlDs6cVDKHjem5JJbFA==.webp" alt="玛格丽特鸡尾酒" class="w-full h-[180px] object-cover">
+                    <div class="p-4">
+                        <h3 class="text-h5 font-bold mb-2"><a href="6.html" >玛格丽特</a></h3>
+                        <div class="text-yellow-400">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star-half-stroke"></i>
+                        </div>
+                    </div>
+                    <div class="favorite-icon absolute top-4 right-4 opacity-0 text-secondary transition-opacity">
+                        <i class="fa-solid fa-heart"></i> 收藏
+                    </div>
+                </div>
+                
+                <!-- 卡片4 -->
+                <div class="card-hover-border relative bg-white rounded overflow-hidden">
+                    <img src="https://fz-zion-static.functorz.com/202512172359/87767ed84991c10c1b47d726409249f5/project/2000000000313055/images/gspMH7ChYCnVTGUhRqF97A==.webp" alt="金汤力鸡尾酒" class="w-full h-[180px] object-cover">
+                    <div class="p-4">
+                        <h3 class="text-h5 font-bold mb-2"><a href="8.html" >金汤力</a></h3>
+                        <div class="text-yellow-400">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star-half-stroke"></i>
+                        </div>
+                    </div>
+                    <div class="favorite-icon absolute top-4 right-4 opacity-0 text-secondary transition-opacity">
+                        <i class="fa-solid fa-heart"></i> 收藏
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ⑤ 内容区-C 个性化酒单 -->
+    <section class="h-section-c w-full py-8">
+        <div class="container mx-auto px-4 h-full">
+            <div class="grid grid-cols-12 gap-6 h-full">
+                <!-- 左侧文案区 (5列) -->
+                <div class="col-span-5 h-full flex flex-col justify-center">
+                    <h2 class="text-2xl font-bold text-primary mb-4">创建你的个性化酒单</h2>
+                    <p class="text-gray-600 mb-6">根据你的口味偏好和手边的材料，生成专属于你的鸡尾酒配方清单</p>
+                        <a href="2.html" class="w-[180px] h-[44px] bg-accent text-white rounded hover:bg-accent/70 transition-colors">立即创建我的酒单</a>
+                </div>
+                
+                <!-- 右侧示意图 (7列) -->
+                <div class="col-span-7 h-full rounded overflow-hidden">
+                    <img src="https://pic1.zhimg.com/v2-9715655db0736b0dde83d978547db832_1440w.jpg?source=172ae18b" class="w-full h-full object-cover">
+                </div>
+            </div>
+        </div>
+    </section>
+
+     <footer class="h-footer w-full bg-primary text-white">
+        <div class="container mx-auto px-4 h-full flex flex-col justify-around py-6">
+            <!-- Row1: 简化为三列 -->
+            <div class="grid grid-cols-3 gap-8">
+                <!-- 第一列：社区（学习类） -->
+                <div>
+                    <h4 class="font-bold mb-2">社区</h4>
+                    <ul class="space-y-1 text-sm">
+                        <li><a href="#" class="hover:text-secondary">新手入门</a></li>
+                        <li><a href="#" class="hover:text-secondary">配方大全</a></li>
+                        <li><a href="#" class="hover:text-secondary">进阶技巧</a></li>
+                    </ul>
+                </div>
+                <!-- 第二列：社区（互动类） -->
+                <div>
+                    <h4 class="font-bold mb-2">社区</h4>
+                    <ul class="space-y-1 text-sm">
+                        <li><a href="#" class="hover:text-secondary">讨论区</a></li>
+                        <li><a href="#" class="hover:text-secondary">分享作品</a></li>
+                        <li><a href="#" class="hover:text-secondary">问答</a></li>
+                    </ul>
+                </div>
+                <!-- 第三列：关于 -->
+                <div>
+                    <h4 class="font-bold mb-2">关于</h4>
+                    <ul class="space-y-1 text-sm">
+                        <li><a href="#" class="hover:text-secondary">关于我们</a></li>
+                        <li><a href="#" class="hover:text-secondary">联系方式</a></li>
+                        <li><a href="#" class="hover:text-secondary">隐私政策</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Row2: 社交媒体图标 -->
+            <div class="flex justify-center space-x-6 py-4 border-t border-white/20 mt-4">
+                <a href="#" class="w-6 h-6 flex items-center justify-center hover:text-secondary">
+                    <i class="fa-brands fa-weixin"></i>
+                </a>
+                <a href="#" class="w-6 h-6 flex items-center justify-center hover:text-secondary">
+                    <i class="fa-brands fa-weibo"></i>
+                </a>
+                <a href="#" class="w-6 h-6 flex items-center justify-center hover:text-secondary">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+                <a href="#" class="w-6 h-6 flex items-center justify-center hover:text-secondary">
+                    <i class="fa-brands fa-tiktok"></i>
+                </a>
+            </div>
+            
+            <!-- Row3: 版权信息 -->
+            <div class="text-center text-sm text-white/70 border-t border-white/20 pt-4">
+                © 2025 鸡尾酒研究所 版权所有
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

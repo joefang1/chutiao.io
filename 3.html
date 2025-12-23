@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>工具介绍 - 鸡尾酒主题网站</title>
+    <!-- 引入Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 引入Font Awesome图标 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- 自定义配置（全站统一） -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0F3460', // 主色 宝石蓝
+                        secondary: '#53BF9D', // 辅色
+                        accent: '#FF8A00', // 点缀橙
+                    },
+                    height: {
+                        'nav': '80px',
+                        'header-banner': '260px', // 栏目头图高度
+                        'footer': '200px',
+                    },
+                    fontSize: {
+                        'banner-title': '18pt', // 小二 18pt
+                    },
+                    screens: {
+                        'lg-plus': '1200px', // 自定义大屏断点
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style type="text/tailwindcss">
+        @layer utilities {
+            /* 复用全站工具类 */
+            .mask-blue-30 {
+                background: rgba(15, 52, 96, 0.3);
+            }
+            .card-hover-effect {
+                transition: all 0.3s ease;
+            }
+            .card-hover-effect:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            }
+        }
+    </style>
+</head>
+<body class="font-sans">
+    <!-- ① 导航栏（全站统一，当前“教程”栏目高亮） -->
+    <header class="h-nav w-full bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto h-full px-4 flex items-center justify-between">
+            <!-- Logo（全站统一） -->
+            <div class="w-[180px] h-[48px] bg-gray-200 flex items-center justify-center">
+                <span class="text-primary font-bold">LOGO</span>
+            </div>
+            
+            <!-- 中间菜单（当前“教程”高亮：辅色2px下划线） -->
+            <nav class="flex space-x-8">
+                <a href="index.html" class="text-gray-700 hover:text-primary font-medium">首页</a>
+                <a href="2.html" class="text-gray-700 hover:text-primary font-medium">酒单</a>
+           
+                <!-- 教程下拉菜单（和首页完全一致的交互效果） -->
+                <div class="relative group">
+                    <a href="#" class="text-primary font-medium border-b-2 border-secondary pb-1 flex items-center gap-1 py-2 px-1 transition-colors duration-200">
+                        教程
+                        <i class="fa-solid fa-chevron-down text-xs transition-transform duration-300 group-hover:rotate-180"></i>
+                    </a>
+                    <div class="absolute top-full left-0 mt-1 w-[180px] bg-white rounded-md overflow-hidden 
+                                invisible opacity-0 h-0 group-hover:h-auto group-hover:visible group-hover:opacity-100
+                                transition-all duration-300 ease-in-out delay-50 shadow-md group-hover:shadow-lg
+                                z-50 border border-gray-100">
+                        <ul class="divide-y divide-gray-100">
+                            <li>
+                                <a href="3.html" class="block px-4 py-3 text-gray-700 
+                              hover:bg-primary/10 hover:text-primary 
+                              hover:translate-x-1 transition-all duration-200 bg-primary/5 text-primary">
+                                 工具介绍
+                                </a>
+                            </li>
+                            <li>
+                                <a href="4.html" class="block px-4 py-3 text-gray-700 
+                              hover:bg-primary/10 hover:text-primary 
+                              hover:translate-x-1 transition-all duration-200">
+                                    基酒知识
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="block px-4 py-3 text-gray-700 
+                             hover:bg-primary/10 hover:text-primary 
+                              hover:translate-x-1 transition-all duration-200">
+                                    基础技巧
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <a href="#" class="text-gray-700 hover:text-primary font-medium">社区</a>
+                <a href="#" class="text-gray-700 hover:text-primary font-medium">关于</a>
+            </nav>
+            
+            <!-- 右侧搜索框 + 图标（全站统一） -->
+            <div class="flex items-center">
+                <div class="relative w-[240px] h-[36px]">
+                    <input type="text" placeholder="搜索调酒工具..." 
+                           class="w-full h-full px-4 pr-10 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/50">
+                    <button class="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-primary">
+                        <i class="fa-solid fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ② 栏目头图（和配方大全页面结构一致，H260px 纯白背景） -->
+    <section class="h-header-banner w-full bg-white border-b border-gray-100">
+        <div class="container mx-auto h-full px-4 flex flex-col justify-center">
+            <!-- 面包屑导航：Home > 教程 > 工具介绍 -->
+            <div class="text-gray-500 text-sm mb-4">
+                <a href="1.html" class="hover:text-primary">Home</a> > 
+                <a href="#" class="hover:text-primary">教程</a> > 
+                <span class="text-primary">工具介绍</span>
+            </div>
+            <!-- 栏目标题 + 副标题 -->
+            <h1 class="text-banner-title font-bold text-primary mb-2">工具介绍</h1>
+            <p class="text-gray-600">了解调酒必备的基础工具与进阶工具，选对工具让调酒更轻松</p>
+        </div>
+    </section>
+
+    <!-- ③ 工具介绍主体内容区（布局合理，分模块展示） -->
+    <section class="w-full py-8 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <!-- 基础工具模块 -->
+            <div class="mb-12">
+                <h2 class="text-2xl font-bold text-primary text-center mb-8">基础必备工具</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- 摇酒壶卡片 -->
+                    <div class="bg-white rounded shadow-sm overflow-hidden card-hover-effect">
+                        <img src="https://img.alicdn.com/bao/uploaded/i3/1858910907/O1CN01YGHLE11IZRwlf4o2w_!!1858910907.jpg" alt="摇酒壶" class="w-full h-[200px] object-cover">
+                        <div class="p-6">
+                            <h3 class="text-lg font-bold text-primary mb-2">摇酒壶（Shaker）</h3>
+                            <p class="text-gray-600 mb-4">调酒核心工具，分为波士顿摇酒壶和三段式摇酒壶，用于混合不易搅拌的原料（如冰块、果汁、糖浆），使酒体降温并混合均匀。</p>
+                            <div class="text-sm text-gray-500">
+                                <span class="inline-block mr-4"><i class="fa-solid fa-star text-yellow-400 mr-1"></i>必备程度：★★★★★</span>
+                                <span class="inline-block"><i class="fa-solid fa-yen-sign text-secondary mr-1"></i>入门价位：50-200元</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 搅拌棒卡片 -->
+                    <div class="bg-white rounded shadow-sm overflow-hidden card-hover-effect">
+                        <img src="https://img.alicdn.com/bao/uploaded/i1/1800176732/O1CN01XZ6e9H1zbInthAhtx_!!1800176732.jpg" alt="搅拌棒" class="w-full h-[200px] object-cover">
+                        <div class="p-6">
+                            <h3 class="text-lg font-bold text-primary mb-2">搅拌棒（Bar Spoon）</h3>
+                            <p class="text-gray-600 mb-4">用于搅拌需保持清澈的鸡尾酒（如马丁尼、曼哈顿），长柄设计可深入杯底，避免稀释过度，同时不会破坏酒体分层。</p>
+                            <div class="text-sm text-gray-500">
+                                <span class="inline-block mr-4"><i class="fa-solid fa-star text-yellow-400 mr-1"></i>必备程度：★★★★★</span>
+                                <span class="inline-block"><i class="fa-solid fa-yen-sign text-secondary mr-1"></i>入门价位：20-80元</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 量酒器卡片 -->
+                    <div class="bg-white rounded shadow-sm overflow-hidden card-hover-effect">
+                        <img src="https://tse4-mm.cn.bing.net/th/id/OIP-C.SEZ1QkBdOt_E1dMfH4flpwHaHa?w=202&h=203&c=7&r=0&o=7&cb=ucfimg2&dpr=1.5&pid=1.7&rm=3&ucfimg=1" alt="量酒器" class="w-full h-[200px] ">
+                        <div class="p-6">
+                            <h3 class="text-lg font-bold text-primary mb-2">量酒器（Jigger）</h3>
+                            <p class="text-gray-600 mb-4">精准控制基酒和配料的用量，常见规格为15/30ml、20/40ml，是保证鸡尾酒口味稳定的核心工具，新手必备。</p>
+                            <div class="text-sm text-gray-500">
+                                <span class="inline-block mr-4"><i class="fa-solid fa-star text-yellow-400 mr-1"></i>必备程度：★★★★★</span>
+                                <span class="inline-block"><i class="fa-solid fa-yen-sign text-secondary mr-1"></i>入门价位：30-100元</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 滤冰器卡片 -->
+                    <div class="bg-white rounded shadow-sm overflow-hidden card-hover-effect">
+                        <img src="https://tse3-mm.cn.bing.net/th/id/OIP-C.XGhHbi3tbZo9HdotRKE4ewAAAA?w=180&h=180&c=7&r=0&o=7&cb=ucfimg2&dpr=1.5&pid=1.7&rm=3&ucfimg=1" alt="滤冰器" class="w-full h-[200px] object-cover">
+                        <div class="p-6">
+                            <h3 class="text-lg font-bold text-primary mb-2">滤冰器（Strainer）</h3>
+                            <p class="text-gray-600 mb-4">分为霍桑滤冰器和朱利普滤冰器，用于将摇酒壶/搅拌杯中的酒液与冰块分离，避免冰块进入成品杯中。</p>
+                            <div class="text-sm text-gray-500">
+                                <span class="inline-block mr-4"><i class="fa-solid fa-star text-yellow-400 mr-1"></i>必备程度：★★★★★</span>
+                                <span class="inline-block"><i class="fa-solid fa-yen-sign text-secondary mr-1"></i>入门价位：20-80元</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 开瓶器卡片 -->
+                    <div class="bg-white rounded shadow-sm overflow-hidden card-hover-effect">
+                        <img src="https://tse4-mm.cn.bing.net/th/id/OIP-C.Oi-6D8r3xKgEBnaSFlrOjQHaHa?w=209&h=209&c=7&r=0&o=7&cb=ucfimg2&dpr=1.5&pid=1.7&rm=3&ucfimg=1" alt="开瓶器" class="w-full h-[200px] ">
+                        <div class="p-6">
+                            <h3 class="text-lg font-bold text-primary mb-2">多功能开瓶器</h3>
+                            <p class="text-gray-600 mb-4">包含开瓶、开罐、开香槟等功能，调酒时常用于开启啤酒、汽水、果汁等配料，是吧台基础工具。</p>
+                            <div class="text-sm text-gray-500">
+                                <span class="inline-block mr-4"><i class="fa-solid fa-star text-yellow-400 mr-1"></i>必备程度：★★★★☆</span>
+                                <span class="inline-block"><i class="fa-solid fa-yen-sign text-secondary mr-1"></i>入门价位：15-50元</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 冰夹卡片 -->
+                    <div class="bg-white rounded shadow-sm overflow-hidden card-hover-effect">
+                        <img src="https://tse4-mm.cn.bing.net/th/id/OIP-C.nKvCaUqrgL1ZR4nTVXcgIAHaHa?w=217&h=217&c=7&r=0&o=7&cb=ucfimg2&dpr=1.5&pid=1.7&rm=3&ucfimg=1" alt="冰夹" class="w-full h-[200px] object-cover">
+                        <div class="p-6">
+                            <h3 class="text-lg font-bold text-primary mb-2">冰夹</h3>
+                            <p class="text-gray-600 mb-4">用于夹取冰块，避免手直接接触冰块造成融化或污染，同时可用于夹取装饰用的水果、香草等配料。</p>
+                            <div class="text-sm text-gray-500">
+                                <span class="inline-block mr-4"><i class="fa-solid fa-star text-yellow-400 mr-1"></i>必备程度：★★★★☆</span>
+                                <span class="inline-block"><i class="fa-solid fa-yen-sign text-secondary mr-1"></i>入门价位：10-40元</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 进阶工具模块 -->
+            <div>
+                <h2 class="text-2xl font-bold text-primary text-center mb-8">进阶提升工具</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- 捣棒卡片 -->
+                    <div class="bg-white rounded shadow-sm overflow-hidden card-hover-effect">
+                        <img src="https://cbu01.alicdn.com/img/ibank/O1CN01PdDEZU20CP4gMu3vf_!!963776813-0-cib.jpg" alt="捣棒" class="w-full h-[300px] ">
+                        <div class="p-6">
+                            <h3 class="text-lg font-bold text-primary mb-2">捣棒（Muddler）</h3>
+                            <p class="text-gray-600 mb-4">用于捣碎水果、香草、糖块等原料，释放风味（如莫吉托中的薄荷、老古巴中的青柠），分为木质和塑料材质。</p>
+                            <div class="text-sm text-gray-500">
+                                <span class="inline-block mr-4"><i class="fa-solid fa-star text-yellow-400 mr-1"></i>必备程度：★★★☆☆</span>
+                                <span class="inline-block"><i class="fa-solid fa-yen-sign text-secondary mr-1"></i>入门价位：20-80元</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 刨冰机卡片 -->
+                    <div class="bg-white rounded shadow-sm overflow-hidden card-hover-effect">
+                        <img src="https://img.alicdn.com/bao/uploaded/i2/2947949867/O1CN01WI8CTS2Ml8pDon6P5_!!0-item_pic.jpg" alt="刨冰机" class="w-full h-[300px] ">
+                        <div class="p-6">
+                            <h3 class="text-lg font-bold text-primary mb-2">刨冰机/碎冰机</h3>
+                            <p class="text-gray-600 mb-4">用于制作碎冰，适用于冻唇蜜、迈泰等需要碎冰的鸡尾酒，提升饮用口感和视觉效果。</p>
+                            <div class="text-sm text-gray-500">
+                                <span class="inline-block mr-4"><i class="fa-solid fa-star text-yellow-400 mr-1"></i>必备程度：★★☆☆☆</span>
+                                <span class="inline-block"><i class="fa-solid fa-yen-sign text-secondary mr-1"></i>入门价位：100-300元</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 榨汁机卡片 -->
+                    <div class="bg-white rounded shadow-sm overflow-hidden card-hover-effect">
+                        <img src="https://tse4-mm.cn.bing.net/th/id/OIP-C.mcyqovpdh_uo0vB8SS0GKQHaHa?w=203&h=203&c=7&r=0&o=7&cb=ucfimg2&dpr=1.5&pid=1.7&rm=3&ucfimg=1" alt="榨汁机" class="w-150px h-[300px] ">
+                        <div class="p-6">
+                            <h3 class="text-lg font-bold text-primary mb-2">手动/电动榨汁机</h3>
+                            <p class="text-gray-600 mb-4">用于榨取新鲜柠檬汁、青柠汁、西柚汁等，新鲜果汁是提升鸡尾酒风味的关键，手动款更适合家庭使用。</p>
+                            <div class="text-sm text-gray-500">
+                                <span class="inline-block mr-4"><i class="fa-solid fa-star text-yellow-400 mr-1"></i>必备程度：★★★☆☆</span>
+                                <span class="inline-block"><i class="fa-solid fa-yen-sign text-secondary mr-1"></i>入门价位：50-200元</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 工具选购小贴士 -->
+            <div class="mt-12 bg-primary/5 rounded-lg p-8 border border-primary/10">
+                <h3 class="text-xl font-bold text-primary mb-4">工具选购小贴士</h3>
+                <ul class="space-y-3 text-gray-700">
+                    <li class="flex items-start">
+                        <i class="fa-solid fa-check-circle text-secondary mt-1 mr-3"></i>
+                        <span>新手优先选购“基础五件套”（摇酒壶+搅拌棒+量酒器+滤冰器+冰夹），满足80%的调酒需求；</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fa-solid fa-check-circle text-secondary mt-1 mr-3"></i>
+                        <span>材质优先选304不锈钢，耐腐蚀、易清洁，避免塑料材质影响酒液口感；</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fa-solid fa-check-circle text-secondary mt-1 mr-3"></i>
+                        <span>进阶工具可根据常做的鸡尾酒类型逐步添加，无需一次性购买齐全。</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- ⑥ 页脚（全站统一，和首页、配方大全页面完全一致） -->
+    <footer class="h-footer w-full bg-primary text-white">
+        <div class="container mx-auto px-4 h-full flex flex-col justify-around py-6">
+            <!-- Row1: 三列布局（社区/社区/关于） -->
+            <div class="grid grid-cols-3 gap-8">
+                <!-- 第一列：社区（学习类） -->
+                <div>
+                    <h4 class="font-bold mb-2">社区</h4>
+                    <ul class="space-y-1 text-sm">
+                        <li><a href="#" class="hover:text-secondary">新手入门</a></li>
+                        <li><a href="#" class="hover:text-secondary">配方大全</a></li>
+                        <li><a href="#" class="hover:text-secondary">进阶技巧</a></li>
+                    </ul>
+                </div>
+                <!-- 第二列：社区（互动类） -->
+                <div>
+                    <h4 class="font-bold mb-2">社区</h4>
+                    <ul class="space-y-1 text-sm">
+                        <li><a href="#" class="hover:text-secondary">讨论区</a></li>
+                        <li><a href="#" class="hover:text-secondary">分享作品</a></li>
+                        <li><a href="#" class="hover:text-secondary">问答</a></li>
+                    </ul>
+                </div>
+                <!-- 第三列：关于 -->
+                <div>
+                    <h4 class="font-bold mb-2">关于</h4>
+                    <ul class="space-y-1 text-sm">
+                        <li><a href="#" class="hover:text-secondary">关于我们</a></li>
+                        <li><a href="#" class="hover:text-secondary">联系方式</a></li>
+                        <li><a href="#" class="hover:text-secondary">隐私政策</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Row2: 社交媒体图标 -->
+            <div class="flex justify-center space-x-6 py-4 border-t border-white/20 mt-4">
+                <a href="#" class="w-6 h-6 flex items-center justify-center hover:text-secondary">
+                    <i class="fa-brands fa-weixin"></i>
+                </a>
+                <a href="#" class="w-6 h-6 flex items-center justify-center hover:text-secondary">
+                    <i class="fa-brands fa-weibo"></i>
+                </a>
+                <a href="#" class="w-6 h-6 flex items-center justify-center hover:text-secondary">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+                <a href="#" class="w-6 h-6 flex items-center justify-center hover:text-secondary">
+                    <i class="fa-brands fa-tiktok"></i>
+                </a>
+            </div>
+            
+            <!-- Row3: 版权信息 -->
+            <div class="text-center text-sm text-white/70 border-t border-white/20 pt-4">
+                © 2025 鸡尾酒研究所 版权所有
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

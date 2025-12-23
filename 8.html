@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>金汤力 - 鸡尾酒主题网站</title>
+    <!-- 引入Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 引入Font Awesome图标 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- 自定义配置（全站统一） -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0F3460', // 主色 宝石蓝
+                        secondary: '#53BF9D', // 辅色
+                        accent: '#FF8A00', // 点缀橙
+                    },
+                    height: {
+                        'nav': '80px',
+                        'header-banner': '260px', // 栏目头图高度
+                        'footer': '200px',
+                    },
+                    fontSize: {
+                        'banner-title': '18pt', // 小二 18pt
+                    },
+                    screens: {
+                        'lg-plus': '1200px', // 自定义大屏断点
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style type="text/tailwindcss">
+        @layer utilities {
+            /* 复用全站工具类 + 专属样式 */
+            .mask-blue-30 {
+                background: rgba(15, 52, 96, 0.3);
+            }
+            .step-card {
+                transition: all 0.2s ease;
+            }
+            .step-card:hover {
+                border-left: 4px solid #53BF9D;
+                background-color: #f8fafc;
+            }
+            .ingredient-tag {
+                @apply px-3 py-1 rounded-full text-sm bg-secondary/10 text-secondary inline-block mr-2 mb-2;
+            }
+        }
+    </style>
+</head>
+<body class="font-sans">
+    <!-- ① 导航栏（全站统一） -->
+    <header class="h-nav w-full bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto h-full px-4 flex items-center justify-between">
+            <!-- Logo（全站统一） -->
+            <div class="w-[180px] h-[48px] bg-gray-200 flex items-center justify-center">
+                <span class="text-primary font-bold">LOGO</span>
+            </div>
+            
+            <!-- 中间菜单（酒单高亮） -->
+            <nav class="flex space-x-8 relative">
+                <a href="index.html" class="text-gray-700 hover:text-primary font-medium">首页</a>
+                <a href="2.html" class="text-primary font-medium border-b-2 border-secondary pb-1">酒单</a>
+                
+                <!-- 教程下拉菜单（和首页完全一致的交互效果） -->
+                <div class="relative group">
+                    <a href="#" class="text-gray-700 hover:text-primary font-medium flex items-center gap-1 py-2 px-1 transition-colors duration-200">
+                        教程
+                        <i class="fa-solid fa-chevron-down text-xs transition-transform duration-300 group-hover:rotate-180"></i>
+                    </a>
+                    <div class="absolute top-full left-0 mt-1 w-[180px] bg-white rounded-md overflow-hidden 
+                                invisible opacity-0 h-0 group-hover:h-auto group-hover:visible group-hover:opacity-100
+                                transition-all duration-300 ease-in-out delay-50 shadow-md group-hover:shadow-lg
+                                z-50 border border-gray-100">
+                        <ul class="divide-y divide-gray-100">
+                            <li>
+                                <a href="3.html" class="block px-4 py-3 text-gray-700 
+                              hover:bg-primary/10 hover:text-primary 
+                               hover:translate-x-1 transition-all duration-200">
+                                    工具介绍
+                                </a>
+                            </li>
+                            <li>
+                                <a href="4.html" class="block px-4 py-3 text-gray-700 
+                               hover:bg-primary/10 hover:text-primary 
+                               hover:translate-x-1 transition-all duration-200">
+                                    基酒知识
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="block px-4 py-3 text-gray-700 
+                               over:bg-primary/10 hover:text-primary 
+                              hover:translate-x-1 transition-all duration-200">
+                                    基础技巧
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <a href="#" class="text-gray-700 hover:text-primary font-medium">社区</a>
+                <a href="#" class="text-gray-700 hover:text-primary font-medium">关于</a>
+            </nav>
+            
+            <!-- 右侧搜索框（占位符贴合主题） -->
+            <div class="flex items-center">
+                <div class="relative w-[240px] h-[36px]">
+                    <input type="text" placeholder="搜索金汤力配方..." 
+                           class="w-full h-full px-4 pr-10 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/50">
+                    <button class="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-primary">
+                        <i class="fa-solid fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ② 栏目头图 -->
+    <section class="h-header-banner w-full bg-white border-b border-gray-100">
+        <div class="container mx-auto h-full px-4 flex flex-col justify-center">
+            <!-- 面包屑导航 -->
+            <div class="text-gray-500 text-sm mb-4">
+                <a href="index.html" class="hover:text-primary">Home</a> > 
+                <a href="recipe-list.html" class="hover:text-primary">酒单</a> > 
+                <span class="text-primary">金汤力</span>
+            </div>
+            <!-- 栏目标题 -->
+            <h1 class="text-banner-title font-bold text-primary mb-2">金汤力（Gin Tonic）</h1>
+            <p class="text-gray-600">经典英式鸡尾酒，金酒的草本香与汤力水的气泡完美融合，清爽易饮</p>
+        </div>
+    </section>
+
+    <!-- ③ 主体内容区 -->
+    <section class="w-full py-8 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <!-- 金汤力简介 -->
+            <div class="mb-12 bg-white rounded-lg shadow-sm p-8">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                    <!-- 左侧图片 -->
+                    <div class="rounded-lg overflow-hidden shadow-md">
+                        <img src="https://fz-zion-static.functorz.com/202512202359/8a907d24cbc6fa4b86a9e2c32f0d8995/project/2000000000313055/images/gspMH7ChYCnVTGUhRqF97A==.webp" alt="金汤力鸡尾酒" class="w-full h-auto object-cover">
+                    </div>
+                    <!-- 右侧简介 -->
+                    <div>
+                        <h2 class="text-2xl font-bold text-primary mb-6 flex items-center">
+                            <i class="fa-solid fa-circle-info text-secondary mr-3"></i>
+                            饮品简介
+                        </h2>
+                        <p class="text-gray-700 mb-4 leading-relaxed">
+                            金汤力（Gin Tonic）起源于19世纪的英国，最初是为了掩盖奎宁水（汤力水）的苦味而加入金酒调制，如今成为全球最受欢迎的经典鸡尾酒之一。
+                        </p>
+                        <p class="text-gray-700 mb-6 leading-relaxed">
+                            这款酒制作极简，仅需金酒和汤力水，搭配青柠提味，金酒的杜松子草本香气与汤力水的气泡、微苦口感形成绝妙平衡，是新手入门的绝佳选择。
+                        </p>
+                        <!-- 风味标签 -->
+                        <div>
+                            <span class="font-medium text-gray-800 mr-2">风味特点：</span>
+                            <span class="ingredient-tag">草本清香</span>
+                            <span class="ingredient-tag">气泡丰富</span>
+                            <span class="ingredient-tag">微苦回甘</span>
+                            <span class="ingredient-tag">低酒精度</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 原材料模块 -->
+            <div class="mb-12 bg-white rounded-lg shadow-sm p-8">
+                <h2 class="text-2xl font-bold text-primary mb-6 flex items-center">
+                    <i class="fa-solid fa-list-check text-secondary mr-3"></i>
+                    制作原材料
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- 基酒 -->
+                    <div class="border border-gray-100 rounded-lg p-6">
+                        <h3 class="text-lg font-bold text-primary mb-4 flex items-center">
+                            <i class="fa-solid fa-wine-bottle text-secondary mr-2"></i>
+                            基酒
+                        </h3>
+                        <ul class="space-y-3 text-gray-700">
+                            <li class="flex justify-between">
+                                <span>伦敦干金酒</span>
+                                <span class="font-medium">50ml</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- 配料 -->
+                    <div class="border border-gray-100 rounded-lg p-6">
+                        <h3 class="text-lg font-bold text-primary mb-4 flex items-center">
+                            <i class="fa-solid fa-carrot text-secondary mr-2"></i>
+                            核心配料
+                        </h3>
+                        <ul class="space-y-3 text-gray-700">
+                            <li class="flex justify-between">
+                                <span>汤力水</span>
+                                <span class="font-medium">至九分满</span>
+                            </li>
+                            <li class="flex justify-between">
+                                <span>新鲜青柠（切角）</span>
+                                <span class="font-medium">1/2个</span>
+                            </li>
+                            <li class="flex justify-between">
+                                <span>冰块（建议用大冰块）</span>
+                                <span class="font-medium">适量</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- 装饰 -->
+                    <div class="border border-gray-100 rounded-lg p-6">
+                        <h3 class="text-lg font-bold text-primary mb-4 flex items-center">
+                            <i class="fa-solid fa-leaf text-secondary mr-2"></i>
+                            装饰
+                        </h3>
+                        <ul class="space-y-3 text-gray-700">
+                            <li class="flex justify-between">
+                                <span>青柠片/青柠角</span>
+                                <span class="font-medium">1片</span>
+                            </li>
+                            <li class="flex justify-between">
+                                <span>高脚杯（高球杯/可林杯）</span>
+                                <span class="font-medium">1个</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- 工具提示 -->
+                <div class="mt-6 bg-primary/5 rounded-lg p-4 text-gray-700">
+                    <i class="fa-solid fa-lightbulb text-secondary mr-2"></i>
+                    <strong>工具准备：</strong> 量酒器、搅拌棒、高球杯、冰夹（参考<a href="tool-intro.html" class="text-secondary hover:underline">工具介绍</a>页面）
+                </div>
+            </div>
+
+            <!-- 制作步骤 -->
+            <div class="bg-white rounded-lg shadow-sm p-8">
+                <h2 class="text-2xl font-bold text-primary mb-6 flex items-center">
+                    <i class="fa-solid fa-clipboard-check text-secondary mr-3"></i>
+                    详细制作步骤
+                </h2>
+                <div class="space-y-6">
+                    <!-- 步骤1 -->
+                    <div class="step-card border-l-2 border-gray-200 pl-6 py-3">
+                        <h3 class="text-lg font-bold text-primary mb-2">步骤 1：准备冰杯</h3>
+                        <p class="text-gray-700">
+                            高球杯中加入1-2块大冰块（大冰块融化慢，不易稀释酒液），静置10秒让杯壁降温，倒掉融化的冰水（可选）。
+                        </p>
+                    </div>
+                    <!-- 步骤2 -->
+                    <div class="step-card border-l-2 border-gray-200 pl-6 py-3">
+                        <h3 class="text-lg font-bold text-primary mb-2">步骤 2：加入金酒与青柠</h3>
+                        <p class="text-gray-700">
+                            用量酒器量取50ml伦敦干金酒倒入冰杯中，放入1/2个青柠角（轻压出少量青柠汁，不要捣烂）。
+                        </p>
+                    </div>
+                    <!-- 步骤3 -->
+                    <div class="step-card border-l-2 border-gray-200 pl-6 py-3">
+                        <h3 class="text-lg font-bold text-primary mb-2">步骤 3：倒入汤力水</h3>
+                        <p class="text-gray-700">
+                            沿杯壁缓慢倒入汤力水至九分满（汤力水需冷藏，且倒入时保持缓慢，保留充足气泡）。
+                        </p>
+                    </div>
+                    <!-- 步骤4 -->
+                    <div class="step-card border-l-2 border-gray-200 pl-6 py-3">
+                        <h3 class="text-lg font-bold text-primary mb-2">步骤 4：轻搅装饰</h3>
+                        <p class="text-gray-700">
+                            用搅拌棒轻轻搅拌1-2圈（仅混合金酒和汤力水，避免破坏气泡），最后用青柠片装饰杯口即可饮用。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 制作小贴士 -->
+                <div class="mt-8 bg-secondary/10 rounded-lg p-6">
+                    <h3 class="text-lg font-bold text-primary mb-4">
+                        <i class="fa-solid fa-star text-secondary mr-2"></i>
+                        新手制作小贴士
+                    </h3>
+                    <ul class="space-y-3 text-gray-700">
+                        <li class="flex items-start">
+                            <i class="fa-solid fa-check text-secondary mt-1 mr-3"></i>
+                            <span>金酒建议选伦敦干金酒（London Dry Gin），杜松子香气更浓郁；避免用果味金酒，会掩盖汤力水的风味；</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa-solid fa-check text-secondary mt-1 mr-3"></i>
+                            <span>汤力水必须冷藏且开封后尽快饮用，常温汤力水气泡少，口感差；</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa-solid fa-check text-secondary mt-1 mr-3"></i>
+                            <span>冰块优先选大冰块/球形冰，小冰块融化快，会快速稀释酒液，破坏风味平衡；</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa-solid fa-check text-secondary mt-1 mr-3"></i>
+                            <span>青柠汁只需轻压出少量即可，过多会掩盖金酒的草本香气，影响经典口感。</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ⑥ 页脚（全站统一） -->
+    <footer class="h-footer w-full bg-primary text-white">
+        <div class="container mx-auto px-4 h-full flex flex-col justify-around py-6">
+            <!-- Row1: 三列布局 -->
+            <div class="grid grid-cols-3 gap-8">
+                <div>
+                    <h4 class="font-bold mb-2">社区</h4>
+                    <ul class="space-y-1 text-sm">
+                        <li><a href="#" class="hover:text-secondary">新手入门</a></li>
+                        <li><a href="#" class="hover:text-secondary">配方大全</a></li>
+                        <li><a href="#" class="hover:text-secondary">进阶技巧</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-2">社区</h4>
+                    <ul class="space-y-1 text-sm">
+                        <li><a href="#" class="hover:text-secondary">讨论区</a></li>
+                        <li><a href="#" class="hover:text-secondary">分享作品</a></li>
+                        <li><a href="#" class="hover:text-secondary">问答</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-2">关于</h4>
+                    <ul class="space-y-1 text-sm">
+                        <li><a href="#" class="hover:text-secondary">关于我们</a></li>
+                        <li><a href="#" class="hover:text-secondary">联系方式</a></li>
+                        <li><a href="#" class="hover:text-secondary">隐私政策</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Row2: 社交媒体图标 -->
+            <div class="flex justify-center space-x-6 py-4 border-t border-white/20 mt-4">
+                <a href="#" class="w-6 h-6 flex items-center justify-center hover:text-secondary">
+                    <i class="fa-brands fa-weixin"></i>
+                </a>
+                <a href="#" class="w-6 h-6 flex items-center justify-center hover:text-secondary">
+                    <i class="fa-brands fa-weibo"></i>
+                </a>
+                <a href="#" class="w-6 h-6 flex items-center justify-center hover:text-secondary">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+                <a href="#" class="w-6 h-6 flex items-center justify-center hover:text-secondary">
+                    <i class="fa-brands fa-tiktok"></i>
+                </a>
+            </div>
+            
+            <!-- Row3: 版权信息 -->
+            <div class="text-center text-sm text-white/70 border-t border-white/20 pt-4">
+                © 2025 鸡尾酒研究所 版权所有
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

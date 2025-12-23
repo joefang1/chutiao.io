@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>配方大全 - 鸡尾酒主题网站</title>
+    <!-- 引入Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 引入Font Awesome图标 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- 自定义配置（和首页保持一致） -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0F3460', // 主色 宝石蓝
+                        secondary: '#53BF9D', // 辅色
+                        accent: '#FF8A00', // 点缀橙
+                    },
+                    height: {
+                        'nav': '80px',
+                        'header-banner': '260px', // 栏目头图高度
+                        'filter-bar': '64px', // 筛选栏高度
+                        'footer': '200px',
+                    },
+                    fontSize: {
+                        'banner-title': '18pt', // 小二 18pt
+                    },
+                    width: {
+                        'sidebar': '280px', // 侧边栏宽度
+                    },
+                    screens: {
+                        'lg-plus': '1200px', // 自定义大屏断点（>1200px显示侧边栏）
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style type="text/tailwindcss">
+        @layer utilities {
+            /* 复用首页的工具类 */
+            .mask-blue-30 {
+                background: rgba(15, 52, 96, 0.3);
+            }
+            .card-hover-border {
+                transition: border-top 0.3s ease;
+            }
+            .card-hover-border:hover {
+                border-top: 5px solid #53BF9D;
+            }
+            .card-hover-border:hover .favorite-icon {
+                opacity: 1;
+            }
+            /* 筛选栏下拉框样式 */
+            .filter-select {
+                @apply px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-secondary/50;
+            }
+            /* 排序按钮样式 */
+            .sort-btn {
+                @apply px-4 py-2 border border-gray-300 rounded hover:bg-secondary/10 transition-colors;
+            }
+            .sort-btn.active {
+                @apply bg-secondary text-white border-secondary;
+            }
+        }
+    </style>
+</head>
+<body class="font-sans">
+    <header class="h-nav w-full bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto h-full px-4 flex items-center justify-between">
+            <!-- Logo（和首页一致） -->
+            <div class="w-[180px] h-[48px] bg-gray-200 flex items-center justify-center">
+                <span class="text-primary font-bold">LOGO</span>
+            </div>
+
+           
+            <nav class="flex space-x-8">
+                <a href="index.html" class="text-gray-700 hover:text-primary font-medium">首页</a>
+               <a href="#" class="text-primary font-medium border-b-2 border-secondary pb-1">酒单</a>
+
+                <div class="relative group">
+                   <a href="#" class="text-gray-700 hover:text-primary font-medium flex items-center gap-1">
+                        教程
+                        <i class="fa-solid fa-chevron-down text-xs transition-transform duration-300 group-hover:rotate-180"></i>
+                    </a>
+                    <div class="absolute top-full left-0 mt-1 w-[180px] bg-white rounded-md overflow-hidden 
+                                invisible opacity-0 h-0 group-hover:h-auto group-hover:visible group-hover:opacity-100
+                                transition-all duration-300 ease-in-out delay-50 shadow-md group-hover:shadow-lg
+                                z-50 border border-gray-100">
+                        <ul class="divide-y divide-gray-100">
+                            <li>
+                                <a href="3.html" class="block px-4 py-3 text-gray-700 
+                             hover:bg-primary/10 hover:text-primary 
+                              hover:translate-x-1 transition-all duration-200 bg-primary/5 text-primary">
+                                    工具介绍
+                                </a>
+                            </li>
+                            <li>
+                                <a href="4.html" class="block px-4 py-3 text-gray-700 
+                                 hover:bg-primary/10 hover:text-primary 
+                                      hover:translate-x-1 transition-all duration-200">
+                                    基酒知识
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="block px-4 py-3 text-gray-700 
+                               hover:bg-primary/10 hover:text-primary 
+                              hover:translate-x-1 transition-all duration-200">
+                                    基础技巧
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <a href="#" class="text-gray-700 hover:text-primary font-medium">社区</a>
+                <a href="#" class="text-gray-700 hover:text-primary font-medium">关于</a>
+            </nav>
+            
+            <!-- 右侧搜索框 + 图标（和首页一致） -->
+            <div class="flex items-center">
+                <div class="relative w-[240px] h-[36px]">
+                    <input type="text" placeholder="搜索鸡尾酒配方..." 
+                           class="w-full h-full px-4 pr-10 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/50">
+                    <button class="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-primary">
+                        <i class="fa-solid fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ② 栏目头图（H260px 纯白背景） -->
+    <section class="h-header-banner w-full bg-white border-b border-gray-100">
+        <div class="container mx-auto h-full px-4 flex flex-col justify-center">
+            <!-- 面包屑导航 -->
+            <div class="text-gray-500 text-sm mb-4">
+                <a href="index.html" class="hover:text-primary">Home</a> > <span class="text-primary">配方大全</span>
+            </div>
+            <!-- 栏目标题 + 副标题 -->
+            <h1 class="text-banner-title font-bold text-primary mb-2">配方大全</h1>
+            <p class="text-gray-600">精选全球经典与创意鸡尾酒配方，新手也能轻松上手</p>
+        </div>
+    </section>
+
+    <!-- ③ 筛选栏（H64px - 改为固定定位） -->
+    <section class="h-filter-bar w-full bg-gray-50 border-b border-gray-200 top-80 left-0 z-40">
+        <div class="container mx-auto h-full px-4 flex items-center justify-between">
+            <!-- 左侧：多级下拉（基酒/难度/时间） -->
+            <div class="flex space-x-4">
+                <select class="filter-select">
+                    <option value="">按基酒筛选</option>
+                    <option value="rum">朗姆酒</option>
+                    <option value="gin">金酒</option>
+                    <option value="whiskey">威士忌</option>
+                    <option value="vodka">伏特加</option>
+                </select>
+                <select class="filter-select">
+                    <option value="">按难度筛选</option>
+                    <option value="easy">入门</option>
+                    <option value="medium">进阶</option>
+                    <option value="hard">高阶</option>
+                </select>
+                <select class="filter-select">
+                    <option value="">按制作时间</option>
+                    <option value="5min">5分钟内</option>
+                    <option value="10min">10分钟内</option>
+                    <option value="15min">15分钟内</option>
+                </select>
+            </div>
+            <!-- 右侧：排序（最热/最新） -->
+            <div class="flex space-x-2">
+                <button class="sort-btn active">最热</button>
+                <button class="sort-btn">最新</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ④ 内容卡片区 + ⑤ 侧边栏（>1200px显示）- 新增顶部内边距避免遮挡 -->
+    <section class="w-full py-8 pt-[144px]"> <!-- pt-[144px] = 导航栏80px + 筛选栏64px -->
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col lg-plus:flex-row gap-6">
+                <!-- 主内容区：瀑布流4列卡片 -->
+                <div class="flex-1">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+                        <!-- 卡片1：莫吉托（复用首页样式） -->
+                        <div class="card-hover-border relative bg-white rounded overflow-hidden shadow-sm">
+                           <img src="https://pic1.zhimg.com/50/v2-f49d8d71865873c79e356c8b9270bdbc_hd.jpg?source=1940ef5c" alt="莫吉托鸡尾酒" class="w-full h-[180px] object-cover">
+                            <div class="p-4">
+                                <h3 class="text-[15px] font-bold mb-2"><a href="5.html" >莫吉托</a></h3>
+                                <div class="text-yellow-400">
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                </div>
+                            </div>
+                            <div class="favorite-icon absolute top-4 right-4 opacity-0 text-secondary transition-opacity">
+                                <i class="fa-solid fa-heart"></i> 收藏
+                            </div>
+                        </div>
+                        <!-- 卡片2：长岛冰茶 -->
+                        <div class="card-hover-border relative bg-white rounded overflow-hidden shadow-sm">
+                            <img src="https://fz-zion-static.functorz.com/202512172359/521a55417a028c6b19bae0bd968fd14d/project/2000000000313055/images/FGu5Hvj5G73DJ05pofbfiQ==.webp" alt="长岛冰茶鸡尾酒" class="w-full h-[180px] object-cover">
+                            <div class="p-4">
+                                <h3 class="text-[15px] font-bold mb-2"><a href="7.html" >长岛冰茶</a></h3>
+                                <div class="text-yellow-400">
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                </div>
+                            </div>
+                            <div class="favorite-icon absolute top-4 right-4 opacity-0 text-secondary transition-opacity">
+                                <i class="fa-solid fa-heart"></i> 收藏
+                            </div>
+                        </div>
+                        <!-- 卡片3：玛格丽特 -->
+                        <div class="card-hover-border relative bg-white rounded overflow-hidden shadow-sm">
+                           <img src="https://fz-zion-static.functorz.com/202512172359/f3653ed2e2eb1e0926fb6f28c55f369b/project/2000000000313055/images/t_iTlDs6cVDKHjem5JJbFA==.webp" alt="玛格丽特鸡尾酒" class="w-full h-[180px] object-cover">
+                            <div class="p-4">
+                                <h3 class="text-[15px] font-bold mb-2"><a href="6.html" >玛格丽特</a></h3>
+                                <div class="text-yellow-400">
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star-half-stroke"></i>
+                                </div>
+                            </div>
+                            <div class="favorite-icon absolute top-4 right-4 opacity-0 text-secondary transition-opacity">
+                                <i class="fa-solid fa-heart"></i> 收藏
+                            </div>
+                        </div>
+                        <!-- 卡片4：曼哈顿 -->
+                        <div class="card-hover-border relative bg-white rounded overflow-hidden shadow-sm">
+                            <img src="https://fz-zion-static.functorz.com/202512202359/c3898dd5dae39d32878b5e4486b94f25/project/2000000000313055/import/1110000000000081/image/Black%20Manhattan.webp" alt="曼哈顿鸡尾酒" class="w-full h-[180px] object-cover">
+                            <div class="p-4">
+                                <h3 class="text-[15px] font-bold mb-2">曼哈顿</h3>
+                                <div class="text-yellow-400">
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star-half-stroke"></i>
+                                </div>
+                            </div>
+                            <div class="favorite-icon absolute top-4 right-4 opacity-0 text-secondary transition-opacity">
+                                <i class="fa-solid fa-heart"></i> 收藏
+                            </div>
+                        </div>
+                        <!-- 卡片5：龙舌兰日出 -->
+                        <div class="card-hover-border relative bg-white rounded overflow-hidden shadow-sm">
+                            <img src="https://fz-zion-static.functorz.com/202512202359/db1b22f1cf4e0a094d673ce21513f631/project/2000000000313055/images/UbItfr2wkTLQpQpEbd99Nw==.webp" alt="龙舌兰日出鸡尾酒" class="w-full h-[180px] object-cover">
+                            <div class="p-4">
+                                <h3 class="text-[15px] font-bold mb-2">龙舌兰日出</h3>
+                                <div class="text-yellow-400">
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                </div>
+                            </div>
+                            <div class="favorite-icon absolute top-4 right-4 opacity-0 text-secondary transition-opacity">
+                                <i class="fa-solid fa-heart"></i> 收藏
+                            </div>
+                        </div>
+                        <!-- 卡片6：威士忌酸 -->
+                        <div class="card-hover-border relative bg-white rounded overflow-hidden shadow-sm">
+                            <img src="https://fz-zion-static.functorz.com/202512202359/75f875c8aa58405f72393751e11fd079/project/2000000000313055/images/8G2DcaQiJq_08vpfhWOD8Q==.webp" alt="威士忌酸鸡尾酒" class="w-full h-[180px] object-cover">
+                            <div class="p-4">
+                                <h3 class="text-[15px] font-bold mb-2">威士忌酸</h3>
+                                <div class="text-yellow-400">
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                </div>
+                            </div>
+                            <div class="favorite-icon absolute top-4 right-4 opacity-0 text-secondary transition-opacity">
+                                <i class="fa-solid fa-heart"></i> 收藏
+                            </div>
+                        </div>
+                        <!-- 卡片7：金汤力 -->
+                        <div class="card-hover-border relative bg-white rounded overflow-hidden shadow-sm">
+                            <img src="https://fz-zion-static.functorz.com/202512202359/8a907d24cbc6fa4b86a9e2c32f0d8995/project/2000000000313055/images/gspMH7ChYCnVTGUhRqF97A==.webp" alt="金汤力鸡尾酒" class="w-full h-[180px] object-cover">
+                            <div class="p-4">
+                                <h3 class="text-[15px] font-bold mb-2"><a href="8.html" >金汤力</a></h3>
+                                <div class="text-yellow-400">
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                </div>
+                            </div>
+                            <div class="favorite-icon absolute top-4 right-4 opacity-0 text-secondary transition-opacity">
+                                <i class="fa-solid fa-heart"></i> 收藏
+                            </div>
+                        </div>
+                        <!-- 卡片8：血腥玛丽 -->
+                        <div class="card-hover-border relative bg-white rounded overflow-hidden shadow-sm">
+                            <img src="https://fz-zion-static.functorz.com/202512202359/1401612ad2769bd0e3c3934194239a2a/project/2000000000313055/images/YKhRS8YkJw0T7evVX-rNcA==.webp" alt="血腥玛丽鸡尾酒" class="w-full h-[180px] object-cover">
+                            <div class="p-4">
+                                <h3 class="text-[15px] font-bold mb-2">血腥玛丽</h3>
+                                <div class="text-yellow-400">
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star-half-stroke"></i>
+                                </div>
+                            </div>
+                            <div class="favorite-icon absolute top-4 right-4 opacity-0 text-secondary transition-opacity">
+                                <i class="fa-solid fa-heart"></i> 收藏
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 加载更多按钮（点缀橙，底部中央） -->
+                    <div class="text-center">
+                        <button class="px-8 py-3 bg-accent text-white rounded hover:bg-accent/90 transition-colors">
+                            <i class="fa-solid fa-plus mr-2"></i>加载更多
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- ⑤ 侧边栏（W280px，>1200px显示） -->
+                <div class="w-sidebar hidden lg-plus:block h-fit sticky top-[144px] self-start"> <!-- 侧边栏top值同步改为144px -->
+                    <div class="bg-white rounded shadow-sm p-6 h-full flex flex-col">
+                        <!-- 热门标签云 -->
+                        <div class="mb-8">
+                            <h3 class="font-bold text-primary mb-4">热门标签</h3>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-3 py-1 bg-secondary text-white rounded-full text-sm">经典</span>
+                                <span class="px-3 py-1 bg-secondary text-white rounded-full text-sm">无酒精</span>
+                                <span class="px-3 py-1 bg-secondary text-white rounded-full text-sm">夏日</span>
+                                <span class="px-3 py-1 bg-secondary text-white rounded-full text-sm">水果味</span>
+                                <span class="px-3 py-1 bg-secondary text-white rounded-full text-sm">高颜值</span>
+                                <span class="px-3 py-1 bg-secondary text-white rounded-full text-sm">新手友好</span>
+                                <span class="px-3 py-1 bg-secondary text-white rounded-full text-sm">威士忌</span>
+                                <span class="px-3 py-1 bg-secondary text-white rounded-full text-sm">朗姆酒</span>
+                            </div>
+                        </div>
+                        
+                        <!-- 配方计算器入口（置底固定） -->
+                        <div class="mt-auto pt-4 border-t border-gray-100">
+                            <a href="#" class="block bg-primary/10 hover:bg-primary/20 transition-colors rounded p-4 text-center">
+                                <i class="fa-solid fa-calculator text-primary text-xl mb-2"></i>
+                                <p class="text-primary font-medium">配方计算器</p>
+                                <p class="text-gray-600 text-sm">按人数自动换算配料用量</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ⑥ 页脚（和首页完全一致） -->
+    <footer class="h-footer w-full bg-primary text-white">
+        <div class="container mx-auto px-4 h-full flex flex-col justify-around py-6">
+            <!-- Row1: 简化为三列 -->
+            <div class="grid grid-cols-3 gap-8">
+                <!-- 第一列：社区（学习类） -->
+                <div>
+                    <h4 class="font-bold mb-2">社区</h4>
+                    <ul class="space-y-1 text-sm">
+                        <li><a href="#" class="hover:text-secondary">新手入门</a></li>
+                        <li><a href="#" class="hover:text-secondary">配方大全</a></li>
+                        <li><a href="#" class="hover:text-secondary">进阶技巧</a></li>
+                    </ul>
+                </div>
+                <!-- 第二列：社区（互动类） -->
+                <div>
+                    <h4 class="font-bold mb-2">社区</h4>
+                    <ul class="space-y-1 text-sm">
+                        <li><a href="#" class="hover:text-secondary">讨论区</a></li>
+                        <li><a href="#" class="hover:text-secondary">分享作品</a></li>
+                        <li><a href="#" class="hover:text-secondary">问答</a></li>
+                    </ul>
+                </div>
+                <!-- 第三列：关于 -->
+                <div>
+                    <h4 class="font-bold mb-2">关于</h4>
+                    <ul class="space-y-1 text-sm">
+                        <li><a href="#" class="hover:text-secondary">关于我们</a></li>
+                        <li><a href="#" class="hover:text-secondary">联系方式</a></li>
+                        <li><a href="#" class="hover:text-secondary">隐私政策</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Row2: 社交媒体图标（保留） -->
+            <div class="flex justify-center space-x-6 py-4 border-t border-white/20 mt-4">
+                <a href="#" class="w-6 h-6 flex items-center justify-center hover:text-secondary">
+                    <i class="fa-brands fa-weixin"></i>
+                </a>
+                <a href="#" class="w-6 h-6 flex items-center justify-center hover:text-secondary">
+                    <i class="fa-brands fa-weibo"></i>
+                </a>
+                <a href="#" class="w-6 h-6 flex items-center justify-center hover:text-secondary">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+                <a href="#" class="w-6 h-6 flex items-center justify-center hover:text-secondary">
+                    <i class="fa-brands fa-tiktok"></i>
+                </a>
+            </div>
+            
+            <!-- Row3: 版权信息（保留） -->
+            <div class="text-center text-sm text-white/70 border-t border-white/20 pt-4">
+                © 2025 鸡尾酒研究所 版权所有
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

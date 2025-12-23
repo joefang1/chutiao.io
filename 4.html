@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>基酒知识 - 鸡尾酒主题网站</title>
+    <!-- 引入Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 引入Font Awesome图标 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- 自定义配置（全站统一） -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0F3460', // 主色 宝石蓝
+                        secondary: '#53BF9D', // 辅色
+                        accent: '#FF8A00', // 点缀橙
+                    },
+                    height: {
+                        'nav': '80px',
+                        'header-banner': '260px', // 栏目头图高度
+                        'footer': '200px',
+                    },
+                    fontSize: {
+                        'banner-title': '18pt', // 小二 18pt
+                    },
+                    screens: {
+                        'lg-plus': '1200px', // 自定义大屏断点
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style type="text/tailwindcss">
+        @layer utilities {
+            /* 复用全站工具类 + 新增基酒卡片交互 */
+            .mask-blue-30 {
+                background: rgba(15, 52, 96, 0.3);
+            }
+            .base-liquor-card {
+                transition: all 0.3s ease;
+            }
+            .base-liquor-card:hover {
+                transform: translateY(-8px);
+                box-shadow: 0 12px 24px rgba(0,0,0,0.12);
+            }
+            .flavor-tag {
+                @apply px-2 py-1 rounded-full text-xs bg-primary/10 text-primary inline-block mr-2 mb-2;
+            }
+        }
+    </style>
+</head>
+<body class="font-sans">
+    <!-- ① 导航栏（全站统一，当前“教程”栏目高亮） -->
+    <header class="h-nav w-full bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto h-full px-4 flex items-center justify-between">
+            <!-- Logo（全站统一） -->
+            <div class="w-[180px] h-[48px] bg-gray-200 flex items-center justify-center">
+                <span class="text-primary font-bold">LOGO</span>
+            </div>
+            
+            <!-- 中间菜单（带下拉菜单，当前“教程”高亮） -->
+            <nav class="flex space-x-8 relative">
+                <a href="index.html" class="text-gray-700 hover:text-primary font-medium">首页</a>
+                <a href="2.html" class="text-gray-700 hover:text-primary font-medium">酒单</a>
+                
+       <div class="relative group">
+                    <a href="#" class="text-primary font-medium border-b-2 border-secondary pb-1 flex items-center gap-1 py-2 px-1 transition-colors duration-200">
+                        教程
+                        <i class="fa-solid fa-chevron-down text-xs transition-transform duration-300 group-hover:rotate-180"></i>
+                    </a>
+                    <div class="absolute top-full left-0 mt-1 w-[180px] bg-white rounded-md overflow-hidden 
+                                invisible opacity-0 h-0 group-hover:h-auto group-hover:visible group-hover:opacity-100
+                                transition-all duration-300 ease-in-out delay-50 shadow-md group-hover:shadow-lg
+                                z-50 border border-gray-100">
+                        <ul class="divide-y divide-gray-100">
+                            <li>
+                                <a href="3.html" class="block px-4 py-3 text-gray-700 
+                                                      hover:bg-primary/10 hover:text-primary 
+                                                      hover:translate-x-1 transition-all duration-200">
+                                    工具介绍
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="block px-4 py-3 text-gray-700 
+                                                      hover:bg-primary/10 hover:text-primary 
+                                                      hover:translate-x-1 transition-all duration-200 bg-primary/5 text-primary">
+                                    基酒知识
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="block px-4 py-3 text-gray-700 
+                                                      hover:bg-primary/10 hover:text-primary 
+                                                      hover:translate-x-1 transition-all duration-200">
+                                    基础技巧
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <a href="#" class="text-gray-700 hover:text-primary font-medium">社区</a>
+                <a href="#" class="text-gray-700 hover:text-primary font-medium">关于</a>
+            </nav>
+            
+            <!-- 右侧搜索框 + 图标（全站统一，占位符贴合主题） -->
+            <div class="flex items-center">
+                <div class="relative w-[240px] h-[36px]">
+                    <input type="text" placeholder="搜索基酒相关知识..." 
+                           class="w-full h-full px-4 pr-10 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/50">
+                    <button class="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-primary">
+                        <i class="fa-solid fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ② 栏目头图（和其他次级页面结构一致，H260px 纯白背景） -->
+    <section class="h-header-banner w-full bg-white border-b border-gray-100">
+        <div class="container mx-auto h-full px-4 flex flex-col justify-center">
+            <!-- 面包屑导航：Home > 教程 > 基酒知识 -->
+            <div class="text-gray-500 text-sm mb-4">
+                <a href="index.html" class="hover:text-primary">Home</a> > 
+                <a href="#" class="hover:text-primary">教程</a> > 
+                <span class="text-primary">基酒知识</span>
+            </div>
+            <!-- 栏目标题 + 副标题 -->
+            <h1 class="text-banner-title font-bold text-primary mb-2">基酒知识</h1>
+            <p class="text-gray-600">认识六大经典基酒的风味特点、产地与代表鸡尾酒，打好调酒基础</p>
+        </div>
+    </section>
+
+    <!-- ③ 基酒知识主体内容区（逻辑分层：基础认知 → 六大基酒详解 → 搭配技巧） -->
+    <section class="w-full py-8 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <!-- 基础认知模块（新手友好） -->
+            <div class="mb-12 bg-white rounded-lg shadow-sm p-6">
+                <h2 class="text-xl font-bold text-primary mb-4 flex items-center">
+                    <i class="fa-solid fa-circle-question text-secondary mr-2"></i>
+                    什么是调酒基酒？
+                </h2>
+                <p class="text-gray-700 mb-4">
+                    基酒（Base Liquor）是鸡尾酒的核心骨架，通常为蒸馏烈酒，酒精度≥35%，决定了鸡尾酒的基础风味。调酒界公认的六大经典基酒为：金酒、朗姆酒、伏特加、威士忌、白兰地、龙舌兰，几乎所有经典鸡尾酒都以其中一种为基底调制。
+                </p>
+                <div class="bg-primary/5 rounded p-4 text-gray-700">
+                    <strong class="text-primary">新手提示：</strong> 选择基酒时，优先根据目标鸡尾酒的风味需求，新手建议从伏特加（中性风味）或金酒（草本风味）入手，容错率更高。
+                </div>
+            </div>
+
+            <!-- 六大基酒详解模块（核心内容，响应式卡片布局） -->
+            <div class="mb-12">
+                <h2 class="text-2xl font-bold text-primary text-center mb-8">六大经典基酒</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- 金酒（Gin）卡片 -->
+                    <div class="bg-white rounded-lg shadow-sm overflow-hidden base-liquor-card">
+                        <div class="relative h-[200px]">
+                            <img src="https://fz-zion-static.functorz.com/202512202359/cf9810d3643169e4488220884a968e77/project/2000000000313055/images/lbMLHfQOvCBY1xJT-NyA4g==.webp" alt="金酒" class="w-full h-full object-cover">
+                            <div class="absolute top-4 right-4 bg-secondary text-white text-xs px-2 py-1 rounded">
+                                草本风味
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-lg font-bold text-primary mb-2">金酒（Gin）</h3>
+                            <div class="text-sm text-gray-500 mb-3">
+                                <span class="inline-block mr-4"><i class="fa-solid fa-location-dot text-secondary mr-1"></i>起源：英国/荷兰</span>
+                                <span class="inline-block"><i class="fa-solid fa-temperature-full text-secondary mr-1"></i>酒精度：37-47%</span>
+                            </div>
+                            <p class="text-gray-700 mb-4">
+                                以谷物为原料，加入杜松子、芫荽、橙皮等草本植物蒸馏而成，核心风味为杜松子的清香，口感干爽，层次丰富。
+                            </p>
+                            <div class="mb-3">
+                                <span class="font-medium text-gray-800">风味标签：</span>
+                                <span class="flavor-tag">杜松子香</span>
+                                <span class="flavor-tag">草本</span>
+                                <span class="flavor-tag">干爽</span>
+                                <span class="flavor-tag">微苦</span>
+                            </div>
+                            <div>
+                                <span class="font-medium text-gray-800">代表鸡尾酒：</span>
+                                <span class="text-secondary">金汤力、尼格罗尼、干马天尼</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 朗姆酒（Rum）卡片 -->
+                    <div class="bg-white rounded-lg shadow-sm overflow-hidden base-liquor-card">
+                        <div class="relative h-[200px]">
+                            <img src="https://ts1.tc.mm.bing.net/th/id/R-C.101a280885b3c35b2333ca40697b0238?rik=85Q2S9UAhY4weQ&riu=http%3a%2f%2fpic.ntimg.cn%2ffile%2f20141027%2f7975149_053851165000_2.jpg&ehk=IOS0zIM1lKSi6oigy1Mo9QOAF5HZr3KIPTdUjbysV2w%3d&risl=&pid=ImgRaw&r=0" alt="朗姆酒" class="w-full h-full object-cover">
+                            <div class="absolute top-4 right-4 bg-secondary text-white text-xs px-2 py-1 rounded">
+                                甜香风味
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-lg font-bold text-primary mb-2">朗姆酒（Rum）</h3>
+                            <div class="text-sm text-gray-500 mb-3">
+                                <span class="inline-block mr-4"><i class="fa-solid fa-location-dot text-secondary mr-1"></i>起源：加勒比海</span>
+                                <span class="inline-block"><i class="fa-solid fa-temperature-full text-secondary mr-1"></i>酒精度：37-44%</span>
+                            </div>
+                            <p class="text-gray-700 mb-4">
+                                以甘蔗汁/糖蜜为原料蒸馏而成，分白朗姆（清爽）、金朗姆（柔和）、黑朗姆（醇厚），带有焦糖、香草、热带水果香气。
+                            </p>
+                            <div class="mb-3">
+                                <span class="font-medium text-gray-800">风味标签：</span>
+                                <span class="flavor-tag">焦糖</span>
+                                <span class="flavor-tag">甜香</span>
+                                <span class="flavor-tag">热带水果</span>
+                            </div>
+                            <div>
+                                <span class="font-medium text-gray-800">代表鸡尾酒：</span>
+                                <span class="text-secondary">莫吉托、自由古巴、黛绮莉</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 伏特加（Vodka）卡片 -->
+                    <div class="bg-white rounded-lg shadow-sm overflow-hidden base-liquor-card">
+                        <div class="relative h-[200px]">
+                            <img src="https://n.sinaimg.cn/sinacn10106/429/w1280h749/20190315/383a-hufnxfn5696868.jpg" alt="伏特加" class="w-full h-full object-cover">
+                            <div class="absolute top-4 right-4 bg-secondary text-white text-xs px-2 py-1 rounded">
+                                中性风味
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-lg font-bold text-primary mb-2">伏特加（Vodka）</h3>
+                            <div class="text-sm text-gray-500 mb-3">
+                                <span class="inline-block mr-4"><i class="fa-solid fa-location-dot text-secondary mr-1"></i>起源：俄罗斯/波兰</span>
+                                <span class="inline-block"><i class="fa-solid fa-temperature-full text-secondary mr-1"></i>酒精度：35-50%</span>
+                            </div>
+                            <p class="text-gray-700 mb-4">
+                                以谷物/马铃薯为原料，经多次蒸馏和过滤，口感纯净、无杂味，是最“百搭”的基酒，能完美融合其他配料的风味。
+                            </p>
+                            <div class="mb-3">
+                                <span class="font-medium text-gray-800">风味标签：</span>
+                                <span class="flavor-tag">纯净</span>
+                                <span class="flavor-tag">中性</span>
+                                <span class="flavor-tag">顺滑</span>
+                            </div>
+                            <div>
+                                <span class="font-medium text-gray-800">代表鸡尾酒：</span>
+                                <span class="text-secondary">血腥玛丽、螺丝起子、白俄罗斯</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 威士忌（Whiskey）卡片 -->
+                    <div class="bg-white rounded-lg shadow-sm overflow-hidden base-liquor-card">
+                        <div class="relative h-[200px]">
+                            <img src="https://ts2.tc.mm.bing.net/th/id/OIP-C.NOFuVRWh0Wu22XTOWxgq5wAAAA?cb=ucfimg2&ucfimg=1&rs=1&pid=ImgDetMain&o=7&rm=3" alt="威士忌" class="w-full h-full object-cover">
+                            <div class="absolute top-4 right-4 bg-secondary text-white text-xs px-2 py-1 rounded">
+                                醇厚风味
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-lg font-bold text-primary mb-2">威士忌（Whiskey/Whisky）</h3>
+                            <div class="text-sm text-gray-500 mb-3">
+                                <span class="inline-block mr-4"><i class="fa-solid fa-location-dot text-secondary mr-1"></i>起源：苏格兰/爱尔兰</span>
+                                <span class="inline-block"><i class="fa-solid fa-temperature-full text-secondary mr-1"></i>酒精度：40-46%</span>
+                            </div>
+                            <p class="text-gray-700 mb-4">
+                                以大麦、玉米等谷物为原料，经发酵、蒸馏后在橡木桶中陈酿，根据产地分为苏格兰、波本、爱尔兰等风格，带有焦糖、烟熏、香草等风味。
+                            </p>
+                            <div class="mb-3">
+                                <span class="font-medium text-gray-800">风味标签：</span>
+                                <span class="flavor-tag">烟熏</span>
+                                <span class="flavor-tag">焦糖</span>
+                                <span class="flavor-tag">木质香</span>
+                            </div>
+                            <div>
+                                <span class="font-medium text-gray-800">代表鸡尾酒：</span>
+                                <span class="text-secondary">威士忌酸、曼哈顿、古典鸡尾酒</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 白兰地（Brandy）卡片 -->
+                    <div class="bg-white rounded-lg shadow-sm overflow-hidden base-liquor-card">
+                        <div class="relative h-[200px]">
+                            <img src="https://bkimg.cdn.bcebos.com/pic/4d086e061d950a7b02089470138975d9f2d3572c6374?x-bce-process=image/format,f_auto/quality,Q_70/resize,m_lfit,limit_1,w_536" alt="白兰地" class="w-full h-full object-cover">
+                            <div class="absolute top-4 right-4 bg-secondary text-white text-xs px-2 py-1 rounded">
+                                果香风味
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-lg font-bold text-primary mb-2">白兰地（Brandy）</h3>
+                            <div class="text-sm text-gray-500 mb-3">
+                                <span class="inline-block mr-4"><i class="fa-solid fa-location-dot text-secondary mr-1"></i>起源：法国</span>
+                                <span class="inline-block"><i class="fa-solid fa-temperature-full text-secondary mr-1"></i>酒精度：38-44%</span>
+                            </div>
+                            <p class="text-gray-700 mb-4">
+                                以葡萄为原料蒸馏而成，最著名的产地为法国干邑地区，口感圆润，带有葡萄、橡木、香料的香气，适合纯饮或调制偏甜的鸡尾酒。
+                            </p>
+                            <div class="mb-3">
+                                <span class="font-medium text-gray-800">风味标签：</span>
+                                <span class="flavor-tag">果香</span>
+                                <span class="flavor-tag">圆润</span>
+                                <span class="flavor-tag">橡木</span>
+                            </div>
+                            <div>
+                                <span class="font-medium text-gray-800">代表鸡尾酒：</span>
+                                <span class="text-secondary">边车、亚历山大、白兰地酸</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 龙舌兰（Tequila）卡片 -->
+                    <div class="bg-white rounded-lg shadow-sm overflow-hidden base-liquor-card">
+                        <div class="relative h-[200px]">
+                            <img src="https://ts1.tc.mm.bing.net/th/id/R-C.8ca2d6ca8479f1bc3d242019620f25d8?rik=9%2bzCd%2b881eJ44g&riu=http%3a%2f%2fn.sinaimg.cn%2fsinacn10115%2f202%2fw628h374%2f20190308%2feb09-htzuhtn6984504.jpg&ehk=eLVoZ7kFtOrmE%2bwOWdLNjJf9m7%2fwUeqyrqUax8Vnl6k%3d&risl=&pid=ImgRaw&r=0" alt="龙舌兰" class="w-full h-full object-cover">
+                            <div class="absolute top-4 right-4 bg-secondary text-white text-xs px-2 py-1 rounded">
+                                草本辛辣
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-lg font-bold text-primary mb-2">龙舌兰（Tequila）</h3>
+                            <div class="text-sm text-gray-500 mb-3">
+                                <span class="inline-block mr-4"><i class="fa-solid fa-location-dot text-secondary mr-1"></i>起源：墨西哥</span>
+                                <span class="inline-block"><i class="fa-solid fa-temperature-full text-secondary mr-1"></i>酒精度：38-40%</span>
+                            </div>
+                            <p class="text-gray-700 mb-4">
+                                以蓝色龙舌兰草为原料，仅产于墨西哥特基拉地区，分 blanco（白标）、reposado（金标）、añejo（陈酿），带有青草、胡椒的辛辣风味。
+                            </p>
+                            <div class="mb-3">
+                                <span class="font-medium text-gray-800">风味标签：</span>
+                                <span class="flavor-tag">辛辣</span>
+                                <span class="flavor-tag">青草</span>
+                                <span class="flavor-tag">胡椒</span>
+                            </div>
+                            <div>
+                                <span class="font-medium text-gray-800">代表鸡尾酒：</span>
+                                <span class="text-secondary">玛格丽特、龙舌兰日出、帕洛玛</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 基酒搭配技巧模块（实用价值） -->
+            <div class="bg-white rounded-lg shadow-sm p-6">
+                <h2 class="text-xl font-bold text-primary mb-4 flex items-center">
+                    <i class="fa-solid fa-puzzle-piece text-secondary mr-2"></i>
+                    基酒搭配小技巧
+                </h2>
+                <ul class="space-y-3 text-gray-700">
+                    <li class="flex items-start">
+                        <i class="fa-solid fa-check-circle text-secondary mt-1 mr-3"></i>
+                        <span><strong>风味互补：</strong> 中性基酒（伏特加）搭配浓烈配料（番茄汁），风味鲜明的基酒（金酒）搭配清淡配料（汤力水）；</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fa-solid fa-check-circle text-secondary mt-1 mr-3"></i>
+                        <span><strong>甜度平衡：</strong> 甜型基酒（黑朗姆）减少糖浆用量，干型基酒（苏格兰威士忌）可适当增加甜味配料；</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fa-solid fa-check-circle text-secondary mt-1 mr-3"></i>
+                        <span><strong>新手避坑：</strong> 避免同时使用两种强风味基酒（如威士忌+龙舌兰），易导致风味冲突；</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fa-solid fa-check-circle text-secondary mt-1 mr-3"></i>
+                        <span><strong>陈酿选择：</strong> 调制复杂鸡尾酒用普通基酒即可，纯饮或简单调制（加冰/苏打水）建议选用高品质陈酿基酒。</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- ⑥ 页脚（全站统一，和其他页面完全一致） -->
+    <footer class="h-footer w-full bg-primary text-white">
+        <div class="container mx-auto px-4 h-full flex flex-col justify-around py-6">
+            <!-- Row1: 三列布局（社区/社区/关于） -->
+            <div class="grid grid-cols-3 gap-8">
+                <!-- 第一列：社区（学习类） -->
+                <div>
+                    <h4 class="font-bold mb-2">社区</h4>
+                    <ul class="space-y-1 text-sm">
+                        <li><a href="#" class="hover:text-secondary">新手入门</a></li>
+                        <li><a href="#" class="hover:text-secondary">配方大全</a></li>
+                        <li><a href="#" class="hover:text-secondary">进阶技巧</a></li>
+                    </ul>
+                </div>
+                <!-- 第二列：社区（互动类） -->
+                <div>
+                    <h4 class="font-bold mb-2">社区</h4>
+                    <ul class="space-y-1 text-sm">
+                        <li><a href="#" class="hover:text-secondary">讨论区</a></li>
+                        <li><a href="#" class="hover:text-secondary">分享作品</a></li>
+                        <li><a href="#" class="hover:text-secondary">问答</a></li>
+                    </ul>
+                </div>
+                <!-- 第三列：关于 -->
+                <div>
+                    <h4 class="font-bold mb-2">关于</h4>
+                    <ul class="space-y-1 text-sm">
+                        <li><a href="#" class="hover:text-secondary">关于我们</a></li>
+                        <li><a href="#" class="hover:text-secondary">联系方式</a></li>
+                        <li><a href="#" class="hover:text-secondary">隐私政策</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Row2: 社交媒体图标 -->
+            <div class="flex justify-center space-x-6 py-4 border-t border-white/20 mt-4">
+                <a href="#" class="w-6 h-6 flex items-center justify-center hover:text-secondary">
+                    <i class="fa-brands fa-weixin"></i>
+                </a>
+                <a href="#" class="w-6 h-6 flex items-center justify-center hover:text-secondary">
+                    <i class="fa-brands fa-weibo"></i>
+                </a>
+                <a href="#" class="w-6 h-6 flex items-center justify-center hover:text-secondary">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+                <a href="#" class="w-6 h-6 flex items-center justify-center hover:text-secondary">
+                    <i class="fa-brands fa-tiktok"></i>
+                </a>
+            </div>
+            
+            <!-- Row3: 版权信息 -->
+            <div class="text-center text-sm text-white/70 border-t border-white/20 pt-4">
+                © 2025 鸡尾酒研究所 版权所有
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
