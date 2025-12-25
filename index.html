@@ -59,68 +59,74 @@
 </head>
 <body class="font-sans">
     <!-- ① 导航栏 -->
- <a href="index.html" class="block w-[180px] h-[48px] flex items-center justify-center group">
-    <!-- 鸡尾酒杯图标 -->
-    <div class="w-8 h-8 mr-2 relative text-secondary group-hover:text-secondary/80 transition-colors duration-300">
-        <i class="fa-solid fa-martini-glass-empty text-2xl absolute top-0 left-1/2 -translate-x-1/2"></i>
-        <!-- 装饰液层 -->
-        <div class="w-4 h-2 bg-primary/80 rounded-full absolute bottom-1 left-1/2 -translate-x-1/2 group-hover:bg-primary transition-colors duration-300"></div>
-    </div>
-    <!-- 文字部分 -->
-    <div class="flex flex-col justify-center">
-        <span class="text-primary font-bold text-lg tracking-tight group-hover:text-primary/90 transition-colors duration-300">酒调社</span>
-        <span class="text-gray-600 text-xs tracking-wider group-hover:text-gray-700 transition-colors duration-300">COCKTAIL LAB</span>
-    </div>
-</a>
-            <!-- 中间菜单 -->
-            <nav class="flex space-x-8">
-                <a href="#" class="text-gray-700 hover:text-primary font-medium">首页</a>
-                <a href="2.html" class="text-gray-700 hover:text-primary font-medium">酒单</a>
-     <div class="relative group">
-                <!-- 主按钮：教程 -->
-                <a href="#" class="text-gray-700 hover:text-primary font-medium flex items-center gap-1">
+<header class="h-nav w-full bg-white shadow-md sticky top-0 z-50">
+    <div class="container mx-auto h-full px-4 flex items-center justify-between">
+        <!-- 替换后的纯代码LOGO -->
+        <a href="index.html" class="block w-[180px] h-[48px] flex items-center justify-center group">
+            <div class="w-8 h-8 mr-2 relative text-secondary group-hover:text-secondary/80 transition-colors duration-300">
+                <i class="fa-solid fa-martini-glass-empty text-2xl absolute top-0 left-1/2 -translate-x-1/2"></i>
+                <div class="w-4 h-2 bg-primary/80 rounded-full absolute bottom-1 left-1/2 -translate-x-1/2 group-hover:bg-primary transition-colors duration-300"></div>
+            </div>
+            <div class="flex flex-col justify-center">
+                <span class="text-primary font-bold text-lg tracking-tight group-hover:text-primary/90 transition-colors duration-300">酒调社</span>
+                <span class="text-gray-600 text-xs tracking-wider group-hover:text-gray-700 transition-colors duration-300">COCKTAIL LAB</span>
+            </div>
+        </a>
+        
+        <!-- 中间菜单（原有代码不变） -->
+        <nav class="flex space-x-8 relative">
+            <a href="index.html" class="text-primary font-medium border-b-2 border-secondary pb-1">首页</a>
+            <a href="recipe-list.html" class="text-gray-700 hover:text-primary font-medium">酒单</a>
+            <div class="relative group">
+                <a href="#" class="text-gray-700 hover:text-primary font-medium flex items-center gap-1 py-2 px-1 transition-colors duration-200">
                     教程
-                    <i class="fa-solid fa-chevron-down text-xs transition-transform group-hover:rotate-180"></i>
+                    <i class="fa-solid fa-chevron-down text-xs transition-transform duration-300 group-hover:rotate-180"></i>
                 </a>
-                <!-- 下拉子菜单（默认隐藏，hover显示） -->
-                <div class="absolute top-full left-0 mt-1 w-[180px] bg-white shadow-lg rounded-md overflow-hidden invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all duration-300 z-50">
+                <div class="absolute top-full left-0 mt-1 w-[180px] bg-white rounded-md overflow-hidden 
+                            invisible opacity-0 h-0 group-hover:h-auto group-hover:visible group-hover:opacity-100
+                            transition-all duration-300 ease-in-out delay-50 shadow-md group-hover:shadow-lg
+                            z-50 border border-gray-100">
                     <ul class="divide-y divide-gray-100">
-                        <!-- 工具介绍（链接到tool-intro.html） -->
                         <li>
-                            <a href="3.html" class="block px-4 py-3 text-gray-700 hover:bg-primary/5 hover:text-primary transition-colors">
+                            <a href="tool-intro.html" class="block px-4 py-3 text-gray-700 
+                                                  hover:bg-primary/10 hover:text-primary 
+                                                  hover:translate-x-1 transition-all duration-200">
                                 工具介绍
                             </a>
                         </li>
-                        <!-- 基酒知识（预留链接，后续可替换为基酒知识页面路径） -->
                         <li>
-                            <a href="4.html" class="block px-4 py-3 text-gray-700 hover:bg-primary/5 hover:text-primary transition-colors">
+                            <a href="base-liquor.html" class="block px-4 py-3 text-gray-700 
+                                                  hover:bg-primary/10 hover:text-primary 
+                                                  hover:translate-x-1 transition-all duration-200">
                                 基酒知识
                             </a>
                         </li>
-                        <!-- 基础技巧（预留链接，后续可替换为基础技巧页面路径） -->
                         <li>
-                            <a href="#" class="block px-4 py-3 text-gray-700 hover:bg-primary/5 hover:text-primary transition-colors">
+                            <a href="#" class="block px-4 py-3 text-gray-700 
+                                                  hover:bg-primary/10 hover:text-primary 
+                                                  hover:translate-x-1 transition-all duration-200">
                                 基础技巧
                             </a>
-                        </ul>
-                    </div>
-                </div>
-                <a href="#" class="text-gray-700 hover:text-primary font-medium">社区</a>
-                <a href="#" class="text-gray-700 hover:text-primary font-medium">关于</a>
-            </nav>
-            
-            <!-- 右侧搜索框 + 图标 -->
-            <div class="flex items-center">
-                <div class="relative w-[240px] h-[36px]">
-                    <input type="text" placeholder="搜索鸡尾酒配方..." 
-                           class="w-full h-full px-4 pr-10 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/50">
-                    <button class="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-primary">
-                        <i class="fa-solid fa-search"></i>
-                    </button>
+                        </li>
+                    </ul>
                 </div>
             </div>
+            <a href="#" class="text-gray-700 hover:text-primary font-medium">社区</a>
+            <a href="#" class="text-gray-700 hover:text-primary font-medium">关于</a>
+        </nav>
+        
+        <!-- 右侧搜索框（原有代码不变） -->
+        <div class="flex items-center">
+            <div class="relative w-[240px] h-[36px]">
+                <input type="text" placeholder="搜索鸡尾酒配方..." 
+                       class="w-full h-full px-4 pr-10 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/50">
+                <button class="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-primary">
+                    <i class="fa-solid fa-search"></i>
+                </button>
+            </div>
         </div>
-    </header>
+    </div>
+</header>
 
     <!-- ② 主视觉区 -->
     <section class="h-hero w-full bg-gray-100">
@@ -333,6 +339,7 @@
 </body>
 
 </html>
+
 
 
 
