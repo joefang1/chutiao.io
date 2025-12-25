@@ -55,7 +55,7 @@
     </style>
 </head>
 <body class="font-sans">
-    <!-- ① 导航栏（全站统一） -->
+    <!-- ① 导航栏（全站统一，带教程下拉菜单） -->
     <header class="h-nav w-full bg-white shadow-md sticky top-0 z-50">
         <div class="container mx-auto h-full px-4 flex items-center justify-between">
             <!-- Logo（全站统一） -->
@@ -63,12 +63,12 @@
                 <span class="text-primary font-bold">LOGO</span>
             </div>
             
-            <!-- 中间菜单（酒单高亮） -->
+            <!-- 中间菜单（教程带下拉菜单，保持全站统一） -->
             <nav class="flex space-x-8 relative">
                 <a href="index.html" class="text-gray-700 hover:text-primary font-medium">首页</a>
                 <a href="2.html" class="text-primary font-medium border-b-2 border-secondary pb-1">酒单</a>
                 
-                <!-- 教程下拉菜单（交互一致） -->
+                <!-- 教程下拉菜单（和首页完全一致的交互效果） -->
                 <div class="relative group">
                     <a href="#" class="text-gray-700 hover:text-primary font-medium flex items-center gap-1 py-2 px-1 transition-colors duration-200">
                         教程
@@ -81,22 +81,22 @@
                         <ul class="divide-y divide-gray-100">
                             <li>
                                 <a href="3.html" class="block px-4 py-3 text-gray-700 
-                                 hover:bg-primary/10 hover:text-primary 
-                                  hover:translate-x-1 transition-all duration-200">
+                              hover:bg-primary/10 hover:text-primary 
+                               hover:translate-x-1 transition-all duration-200">
                                     工具介绍
                                 </a>
                             </li>
                             <li>
                                 <a href="4.html" class="block px-4 py-3 text-gray-700 
-                              hover:bg-primary/10 hover:text-primary 
+                               hover:bg-primary/10 hover:text-primary 
                                hover:translate-x-1 transition-all duration-200">
                                     基酒知识
                                 </a>
                             </li>
                             <li>
                                 <a href="#" class="block px-4 py-3 text-gray-700 
-                                 hover:bg-primary/10 hover:text-primary 
-                                 over:translate-x-1 transition-all duration-200">
+                               over:bg-primary/10 hover:text-primary 
+                              hover:translate-x-1 transition-all duration-200">
                                     基础技巧
                                 </a>
                             </li>
@@ -108,10 +108,10 @@
                 <a href="#" class="text-gray-700 hover:text-primary font-medium">关于</a>
             </nav>
             
-            <!-- 右侧搜索框（占位符贴合主题） -->
+            <!-- 右侧搜索框 + 图标（全站统一，占位符贴合主题） -->
             <div class="flex items-center">
                 <div class="relative w-[240px] h-[36px]">
-                    <input type="text" placeholder="搜索玛格丽特配方..." 
+                    <input type="text" placeholder="搜索莫吉托配方..." 
                            class="w-full h-full px-4 pr-10 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/50">
                     <button class="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-primary">
                         <i class="fa-solid fa-search"></i>
@@ -366,4 +366,5 @@
 </body>
 
 </html>
+
 
